@@ -10,9 +10,11 @@ from random import *
 from datetime import datetime
 
 import os
+from django.conf import settings
+from django.http import HttpResponse, Http404 
 
-from django.core.files.storage import FileSystemStorage
 from django.http import FileResponse
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -86,7 +88,9 @@ def index_two(request):
         postalcode = request.session["postalcode"]
         postalcode = postalcode[:3]+" "+postalcode[3:]
 
-        can = canvas.Canvas("final_invoice.pdf")
+        outfilename = os.path.join(BASE_DIR, 'myapp/static/myapp/final_invoice.pdf')
+
+        can = canvas.Canvas(outfilename)
 
         #head
         file_name = os.path.join(BASE_DIR, 'myapp/static/myapp/header.png')
@@ -172,12 +176,12 @@ def index_two(request):
         footer_filename = os.path.join(BASE_DIR, 'myapp/static/myapp/footer.png')
 
         can.drawImage(footer_filename, 0, -130, width=570, preserveAspectRatio=True, mask='auto')
-        
+
         can.showPage()
         can.save()
 
-
-        return render(request, 'index_two.html', {"mymessage": "Invoice Generated.","Flag":"True"})
+        return FileResponse(open(outfilename, 'rb'), as_attachment=True)
+        # return render(request, 'index_two.html', {"mymessage": "Invoice Generated.","Flag":"True"})
 
 
     return render(request, "index_two.html")
