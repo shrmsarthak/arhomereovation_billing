@@ -5,9 +5,14 @@ import pickle
 from reportlab.pdfgen import canvas
 import pathlib
 from pathlib import Path
-import os
+
 from random import *
 from datetime import datetime
+
+import os
+
+from django.core.files.storage import FileSystemStorage
+from django.http import FileResponse
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -69,6 +74,8 @@ def index_two(request):
             return render(request, 'index_two.html', {"mymessage": "Please enter data in the given field.","Flag":"True"})
 
     elif 'generateinvoice' in request.POST:
+
+
         pickle_in = open("invoice.pickle","rb")
         items_dict = pickle.load(pickle_in)
 
