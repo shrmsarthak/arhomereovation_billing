@@ -16,6 +16,7 @@ SECRET_KEY = 'django-insecure-e#ov2dd3i228hlk82p!(1dl4)wur!1e!v(+@8_de&w!(tkl2mv
 DEBUG = True
 
 ALLOWED_HOSTS = ['arhomerenovation-990f5bcf0d20.herokuapp.com']
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -111,10 +112,15 @@ USE_TZ = True
 # STATICFILES_DIRS = [
 #    os.path.join(BASE_DIR, 'myapp/static/')
 # ]
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
 # STATIC_URL = '/static/'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'myapp/staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'), ]
 
 # Default primary key field type
